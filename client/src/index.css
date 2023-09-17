@@ -1,0 +1,112 @@
+:root {
+  background-color: #121212;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #fff;
+  margin: 0;
+  font-family: "Poppins";
+  /* font-size: 20px; */
+}
+
+header {
+  background: #000;
+}
+
+header h1 {
+  color: #fff;
+  margin-left: 50px;
+}
+
+header .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 5px 20px;
+  display: flex;
+  /* align-items: center;
+  justify-self: space-between; */
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+nav button {
+  margin-left: 10px;
+}
+
+.home {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: 100px;
+  margin: 40px;
+  margin-right: 100px;
+  margin-left: 40xpx;
+}
+.sidebar {
+  background: #1f1b1b;
+  border-radius: 4px;
+}
+.sidebar h2 {
+  padding-left: 20px;
+}
+
+.create {
+  font-size: 18px;
+  font-weight: 200;
+  max-width: 100%;
+  margin-left: 40px;
+  padding: 20px;
+  border-radius: 4px;
+  background: #1f1b1b;
+}
+
+form .title {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #333;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: none;
+  color: #fff;
+}
+form .radio {
+  padding: 10px 0;
+}
+form textarea {
+  width: 100%;
+  margin-top: 10px;
+  height: 190px;
+  padding: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 1px solid #333;
+  background-color: transparent;
+  resize: none;
+  color: #fff;
+  outline: none;
+}
+form button {
+  background-color: #4caf50;
+  border: none;
+  display: inline-block;
+  margin: 10px auto;
+  padding: 12px 12px;
+}
+
+.pastes {
+  margin: 20px;
+}
+.pastes-details h4 {
+  margin: 10px 0 10px 0;
+}
+.pastes-details p {
+  margin: 0;
+}
