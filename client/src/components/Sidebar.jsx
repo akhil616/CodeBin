@@ -12,7 +12,7 @@ const Sidebar = () => {
       }
     };
     fetchPaste();
-  }, []);
+  }, [pastes]);
   return (
     <div className="sidebar">
       <h2>Public Pastes</h2>
