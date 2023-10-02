@@ -13,6 +13,7 @@ body {
 
 header {
   background: #000;
+  text-decoration: none;
 }
 
 header h1 {
@@ -45,7 +46,7 @@ nav button {
   gap: 100px;
   margin: 40px;
   margin-right: 100px;
-  margin-left: 40xpx;
+  margin-left: 40px;
 }
 .sidebar {
   background: #1f1b1b;
@@ -99,6 +100,7 @@ form button {
   display: inline-block;
   margin: 10px auto;
   padding: 12px 12px;
+  cursor: pointer;
 }
 
 .pastes {
@@ -109,4 +111,18 @@ form button {
 }
 .pastes-details p {
   margin: 0;
+}
+
+.paste textarea {
+  width: 100%;
+  margin-top: 10px;
+  height: 190px;
+  padding: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 1px solid #333;
+  background-color: #1f1b1b;
+  resize: none;
+  color: #fff;
+  outline: none;
 }

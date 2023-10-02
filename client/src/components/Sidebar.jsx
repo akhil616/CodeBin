@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import PasteDetails from "./PasteDetails";
+import { usePasteContext } from "../hooks/usePasteContext";
 
 const Sidebar = () => {
-  const [pastes, setPastes] = useState(null);
+  // const [pastes, setPastes] = useState(null);
+  const { pastes, dispatch } = usePasteContext();
   useEffect(() => {
     const fetchPaste = async () => {
       const response = await fetch("http://localhost:5500/api/pastes/");
       const json = await response.json();
       if (response.ok) {
-        setPastes(json);
+        dispatch({ type: "SET_PASTES", payload: json });
       }
     };
+
     fetchPaste();
-  }, [pastes]);
+    console.log("fetch");
+  }, []);
+
   return (
     <div className="sidebar">
       <h2>Public Pastes</h2>

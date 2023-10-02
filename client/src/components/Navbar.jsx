@@ -1,10 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <header>
       <div className="container">
-        <h1>Paste Bin</h1>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <h1>CodeBin</h1>
+        </Link>
         <nav>
           <div>
             <button>+ Paste</button>

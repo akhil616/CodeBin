@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-
+import { usePasteContext } from "../hooks/usePasteContext";
 const Home = () => {
+  const { dispatch } = usePasteContext();
   const [title, setTitle] = useState("");
   const [visibility, setVisibility] = useState(null);
   const [body, setBody] = useState("");
@@ -26,6 +27,8 @@ const Home = () => {
       setBody("");
       setVisibility(null);
       setError(null);
+      console.log("new paste added", json);
+      dispatch({ type: "CREATE_PASTE", payload: json });
     }
   };
 
@@ -77,7 +80,6 @@ const Home = () => {
           <button>Create New Paste</button>
           {error && <div>{error}</div>}
         </form>
-        {title} {body} {visibility}
       </div>
       <Sidebar />
     </div>
