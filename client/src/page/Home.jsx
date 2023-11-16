@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { usePasteContext } from "../hooks/usePasteContext";
+
 const Home = () => {
   const { dispatch } = usePasteContext();
   const [title, setTitle] = useState("");

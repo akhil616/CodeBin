@@ -101,6 +101,8 @@ form button {
   margin: 10px auto;
   padding: 12px 12px;
   cursor: pointer;
+  color: white;
+  border-radius: 4px;
 }
 
 .pastes {
@@ -125,4 +127,11 @@ form button {
   resize: none;
   color: #fff;
   outline: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: #3c4146; /* Just a mild gray, you can change this to whatever you want */
 }
