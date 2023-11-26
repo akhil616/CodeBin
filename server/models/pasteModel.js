@@ -15,6 +15,10 @@ const PasteSchema = new Schema(
       type: String,
       required: true,
     },
+    user_id: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

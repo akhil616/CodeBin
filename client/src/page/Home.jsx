@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { usePasteContext } from "../hooks/usePasteContext";
+import UserPaste from "../components/UserPaste";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Home = () => {
   const { dispatch } = usePasteContext();
@@ -8,6 +10,19 @@ const Home = () => {
   const [visibility, setVisibility] = useState(null);
   const [body, setBody] = useState("");
   const [error, setError] = useState(null);
+  const { user } = useAuthContext();
+
+  var config = {};
+  if (user) {
+    config = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user.token}`,
+    };
+  } else {
+    config = {
+      "Content-Type": "application/json",
+    };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,9 +30,7 @@ const Home = () => {
     const response = await fetch("http://localhost:5500/api/pastes/", {
       method: "POST",
       body: JSON.stringify(paste),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: config,
     });
     const json = await response.json();
     if (!response.ok) {
@@ -82,7 +95,10 @@ const Home = () => {
           {error && <div>{error}</div>}
         </form>
       </div>
-      <Sidebar />
+      <div className="sidebar">
+        {user && <UserPaste />}
+        <Sidebar />
+      </div>
     </div>
   );
 };

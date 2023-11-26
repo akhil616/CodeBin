@@ -1,12 +1,17 @@
 const express = require("express");
-const router = express.Router();
 const {
   getPastes,
   getPaste,
   createPaste,
+  getMyPaste,
   deletePaste,
   updatePaste,
 } = require("../controllers/pasteController");
+
+const checkAuth = require("../middleware/checkAuth");
+const router = express.Router();
+
+// check auth for these
 
 // GET all public pastes
 router.get("/", getPastes);
@@ -15,7 +20,11 @@ router.get("/", getPastes);
 router.get("/:id", getPaste);
 
 // POST a new paste
+router.use(checkAuth);
 router.post("/", createPaste);
+
+// POST Auth paste
+// router.post("/", createAuthPaste);
 
 // DELETE a paste
 router.delete("/:id", deletePaste);

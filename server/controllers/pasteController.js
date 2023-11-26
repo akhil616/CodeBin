@@ -26,11 +26,31 @@ const getPaste = async (req, res) => {
 const createPaste = async (req, res) => {
   const { title, visibility, body } = req.body;
   try {
-    const paste = await Paste.create({ title, visibility, body });
+    let paste;
+    if (req.user) {
+      console.log("Here");
+      const user_id = req.user._id;
+      paste = await Paste.create({ title, visibility, body, user_id });
+    } else {
+      console.log("created");
+      paste = await Paste.create({ title, visibility, body });
+    }
     res.status(200).json(paste);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+};
+
+// Authorization controllers
+
+// GET All Pastes (public/private)
+const getMyPastes = async (req, res) => {
+  console.log("my pastes");
+  const user_id = req.user._id;
+  const pastes = await Paste.find({ user_id }).sort({
+    createdAt: -1,
+  });
+  res.status(200).json(pastes);
 };
 
 // Delete paste
@@ -63,6 +83,7 @@ module.exports = {
   getPastes,
   getPaste,
   createPaste,
+  getMyPastes,
   deletePaste,
   updatePaste,
 };
