@@ -4,20 +4,7 @@ import { usePasteContext } from "../hooks/usePasteContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const Sidebar = () => {
-  // const [pastes, setPastes] = useState(null);
   const { pastes, dispatch } = usePasteContext();
-  // const { user } = useAuthContext();
-  // var config = {};
-  // if (user) {
-  //   config = {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${user.token}`,
-  //   };
-  // } else {
-  //   config = {
-  //     "Content-Type": "application/json",
-  //   };
-  // }
 
   useEffect(() => {
     const fetchPaste = async () => {

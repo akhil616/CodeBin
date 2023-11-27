@@ -3,7 +3,6 @@ const {
   getPastes,
   getPaste,
   createPaste,
-  getMyPaste,
   deletePaste,
   updatePaste,
 } = require("../controllers/pasteController");

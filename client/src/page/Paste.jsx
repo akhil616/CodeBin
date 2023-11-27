@@ -1,14 +1,33 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, redirect } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import UserPaste from "../components/UserPaste";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { usePasteContext } from "../hooks/usePasteContext";
 const Paste = () => {
+  const { user } = useAuthContext();
+  const { dispatch } = usePasteContext();
   const location = useLocation();
   const { paste } = location.state;
+
   const deletePaste = async (e) => {
     e.preventDefault();
+    console.log(paste._id);
+    const response = await fetch(
+      `http://localhost:5500/api/pastes/${paste._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    const json = await response.json();
+    if (response.ok) {
+      dispatch({ type: "DELETE_PASTE", payload: json });
+      redirect(json.redirect);
+    }
   };
-  console.log(paste);
   return (
     <>
       <div className="home">
@@ -21,12 +40,16 @@ const Paste = () => {
           ></textarea>
           <div className="icon">
             <span>copy</span>
-            <span>edit</span>
-            <span onClick={deletePaste}>delete</span>
+            {user && user._id === paste.user_id && (
+              <>
+                <span>edit</span>
+                <span onClick={deletePaste}>delete</span>
+              </>
+            )}
           </div>
         </div>
         <div className="sidebar">
-          <UserPaste />
+          {user && <UserPaste />}
           <Sidebar />
         </div>
       </div>

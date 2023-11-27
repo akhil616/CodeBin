@@ -159,6 +159,7 @@ form button {
 }
 .icon span {
   padding: 2px;
+  cursor: pointer;
 }
 
 a:hover,

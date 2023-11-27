@@ -42,7 +42,9 @@ const Home = () => {
       setVisibility(null);
       setError(null);
       console.log("new paste added", json);
-      dispatch({ type: "CREATE_PASTE", payload: json });
+      if (json.visibility === "Public") {
+        dispatch({ type: "CREATE_PASTE", payload: json });
+      }
     }
   };
 

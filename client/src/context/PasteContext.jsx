@@ -17,6 +17,11 @@ export const pasteReducer = (state, action) => {
         pastes: [action.payload, ...state.pastes],
       };
 
+    case "DELETE_PASTE":
+      return {
+        pastes: state.pastes.filter((p) => p._id !== action.payload._id),
+      };
+
     default:
       return state;
   }

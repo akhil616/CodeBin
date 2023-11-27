@@ -5,11 +5,7 @@ const PasteDetails = ({ paste }) => {
   return (
     <div className="pastes-details">
       <h4>
-        <Link
-          to={`/${paste._id}`}
-          state={{ paste }}
-          style={{ textDecoration: "none" }}
-        >
+        <Link to={`/${paste._id}`} state={{ paste }}>
           {paste.title}
         </Link>
       </h4>

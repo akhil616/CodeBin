@@ -28,12 +28,10 @@ const createPaste = async (req, res) => {
   try {
     let paste;
     if (req.user) {
-      console.log("Here");
       const user_id = req.user._id;
       paste = await Paste.create({ title, visibility, body, user_id });
     } else {
-      console.log("created");
-      paste = await Paste.create({ title, visibility, body });
+      paste = await Paste.create({ title, visibility, body, user_id: "" });
     }
     res.status(200).json(paste);
   } catch (error) {
@@ -45,7 +43,6 @@ const createPaste = async (req, res) => {
 
 // GET All Pastes (public/private)
 const getMyPastes = async (req, res) => {
-  console.log("my pastes");
   const user_id = req.user._id;
   const pastes = await Paste.find({ user_id }).sort({
     createdAt: -1,
@@ -63,7 +60,7 @@ const deletePaste = async (req, res) => {
   if (!paste) {
     return res.status(404).json({ error: "No such pastes" });
   }
-  res.status(200).json(paste);
+  res.status(200).json({ paste, redirect: "/" });
 };
 
 // UPDATE paste
