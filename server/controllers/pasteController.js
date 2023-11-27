@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 // GET all Pastes
 const getPastes = async (req, res) => {
-  const pastes = await Paste.find({ visibility: "Public" }).sort({
+  const pastes = await Paste.find({ visibility: "Public" }).limit(8).sort({
     createdAt: -1,
   });
   res.status(200).json(pastes);

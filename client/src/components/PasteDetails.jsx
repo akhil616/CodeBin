@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 const PasteDetails = ({ paste }) => {
   return (
     <div className="pastes-details">
@@ -9,7 +9,9 @@ const PasteDetails = ({ paste }) => {
           {paste.title}
         </Link>
       </h4>
-      <p>1 day ago</p>
+      <p>
+        {formatDistanceToNow(new Date(paste.createdAt), { addSuffix: true })}
+      </p>
     </div>
   );
 };

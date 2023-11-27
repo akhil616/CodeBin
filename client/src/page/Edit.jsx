@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { useLocation } from "react-router-dom";
 import { usePasteContext } from "../hooks/usePasteContext";
 import UserPaste from "../components/UserPaste";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useUserPasteContext } from "../hooks/useUserPasteContext";
 
-const Home = () => {
+const Edit = () => {
+  const location = useLocation();
+  const { paste } = location.state;
+
   const { dispatch } = usePasteContext();
-  const [title, setTitle] = useState("");
-  const [visibility, setVisibility] = useState(null);
-  const [body, setBody] = useState("");
+  const [title, setTitle] = useState(paste.title);
+  const [visibility, setVisibility] = useState(paste.visibility);
+  const [body, setBody] = useState(paste.body);
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
-  const { dispatch: userPasteDispatch } = useUserPasteContext();
 
   var config = {};
   if (user) {
@@ -28,12 +30,15 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const paste = { title, visibility, body };
-    const response = await fetch("http://localhost:5500/api/pastes/", {
-      method: "POST",
-      body: JSON.stringify(paste),
-      headers: config,
-    });
+    const patchPaste = { title, visibility, body };
+    const response = await fetch(
+      `http://localhost:5500/api/pastes/${paste._id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(patchPaste),
+        headers: config,
+      }
+    );
     const json = await response.json();
     if (!response.ok) {
       setError(json.error);
@@ -43,18 +48,17 @@ const Home = () => {
       setBody("");
       setVisibility(null);
       setError(null);
-      console.log("new paste added", json);
-      userPasteDispatch({ type: "CREATE_PASTE", payload: json });
-      if (json.visibility === "Public") {
-        dispatch({ type: "CREATE_PASTE", payload: json });
-      }
+      console.log("paste updated", json);
+      // if (json.visibility === "Public") {
+      //   dispatch({ type: "CREATE_PASTE", payload: json });
+      // }
     }
   };
 
   return (
     <div className="home">
       <div className="create">
-        <h3>Add New Paste</h3>
+        <h3>Edit Paste</h3>
         <form onSubmit={handleSubmit}>
           <label>Paste Name / Title </label>
           <br />
@@ -97,7 +101,7 @@ const Home = () => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
-          <button>Create New Paste</button>
+          <button>Update Paste</button>
           {error && <div>{error}</div>}
         </form>
       </div>
@@ -109,4 +113,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Edit;

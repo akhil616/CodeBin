@@ -16,11 +16,23 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <h1>CodeBin</h1>
         </Link>
+        <div className="menu"></div>
         <nav>
-          <div>
+          <Link to="/">
             <button>+ Paste</button>
-            <button>Find</button>
-          </div>
+          </Link>
+          <form className="search-form">
+            <input
+              type="text"
+              name="query"
+              className="search-box"
+              placeholder="Search..."
+              autoComplete="off"
+            />
+            <button className="search-btn" type="submit">
+              Search
+            </button>
+          </form>
           {user && (
             <div>
               <span>{user.email}</span>

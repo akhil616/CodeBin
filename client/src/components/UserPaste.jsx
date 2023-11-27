@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { usePasteContext } from "../hooks/usePasteContext";
 import PasteDetails from "./PasteDetails";
+import { useUserPasteContext } from "../hooks/useUserPasteContext";
 
 const UserPaste = () => {
   // const { pastes, dispatch } = usePasteContext();
-  const [pastes, setPastes] = useState([]);
+  // const [pastes, setPastes] = useState([]);
+  const { pastes, dispatch } = useUserPasteContext();
   const { user } = useAuthContext();
   useEffect(() => {
     const fetchPaste = async () => {
@@ -15,10 +17,10 @@ const UserPaste = () => {
         },
       });
       const json = await response.json();
-      // if (response.ok) {
-      //   dispatch({ type: "SET_PASTES", payload: json });
-      // }
-      setPastes(json);
+      if (response.ok) {
+        dispatch({ type: "SET_PASTES", payload: json });
+      }
+      // setPastes(json);
     };
     fetchPaste();
     console.log("Fetched user Pastes");

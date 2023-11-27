@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Signup from "./page/Signup";
 import Login from "./page/Login";
 import { useAuthContext } from "./hooks/useAuthContext";
+import Edit from "./page/Edit";
 
 function App() {
   const { pastes } = usePasteContext();
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:id" element={<Paste />} />
+            <Route path="/edit/:id" element={<Edit />} />
             <Route
               path="/login"
               element={user ? <Navigate to="/" /> : <Login />}

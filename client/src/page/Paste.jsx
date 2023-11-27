@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, redirect } from "react-router-dom";
+import { useLocation, redirect, Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import UserPaste from "../components/UserPaste";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -39,10 +39,16 @@ const Paste = () => {
             value={paste.body}
           ></textarea>
           <div className="icon">
-            <span>copy</span>
+            <span onClick={(e) => navigator.clipboard.writeText(paste.body)}>
+              copy
+            </span>
             {user && user._id === paste.user_id && (
               <>
-                <span>edit</span>
+                <span>
+                  <Link to={`/edit/${paste._id}`} state={{ paste }}>
+                    edit
+                  </Link>
+                </span>
                 <span onClick={deletePaste}>delete</span>
               </>
             )}
