@@ -190,13 +190,13 @@ form button {
   cursor: pointer;
 }
 
-a:hover,
-a:focus,
-a:active {
+a {
+  color: #fff;
   text-decoration: none;
-  color: #3c4146; /* Just a mild gray, you can change this to whatever you want */
 }
-
+a:hover {
+  color: #00f;
+}
 nav {
   display: flex;
   align-items: center;
