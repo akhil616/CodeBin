@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { useLocation } from "react-router-dom";
+import { redirect, useLocation } from "react-router-dom";
 import { usePasteContext } from "../hooks/usePasteContext";
 import UserPaste from "../components/UserPaste";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -48,10 +48,7 @@ const Edit = () => {
       setBody("");
       setVisibility(null);
       setError(null);
-      console.log("paste updated", json);
-      // if (json.visibility === "Public") {
-      //   dispatch({ type: "CREATE_PASTE", payload: json });
-      // }
+      window.location.href = `/${json.redirect}`;
     }
   };
 

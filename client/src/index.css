@@ -190,6 +190,10 @@ form button {
   cursor: pointer;
 }
 
+span:hover {
+  color: #00f;
+}
+
 a {
   color: #fff;
   text-decoration: none;

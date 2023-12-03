@@ -5,9 +5,7 @@ const PasteDetails = ({ paste }) => {
   return (
     <div className="pastes-details">
       <h4>
-        <Link to={`/${paste._id}`} state={{ paste }}>
-          {paste.title}
-        </Link>
+        <Link to={`/${paste._id}`}>{paste.title}</Link>
       </h4>
       <p>
         {formatDistanceToNow(new Date(paste.createdAt), { addSuffix: true })}

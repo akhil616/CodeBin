@@ -7,6 +7,7 @@ import Signup from "./page/Signup";
 import Login from "./page/Login";
 import { useAuthContext } from "./hooks/useAuthContext";
 import Edit from "./page/Edit";
+import NotFound from "./page/NotFound";
 
 function App() {
   const { pastes } = usePasteContext();
@@ -28,6 +29,8 @@ function App() {
               path="/signup"
               element={user ? <Navigate to="/" /> : <Signup />}
             />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </BrowserRouter>

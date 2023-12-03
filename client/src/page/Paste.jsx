@@ -1,5 +1,5 @@
-import React from "react";
-import { useLocation, redirect, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, redirect, Link, useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import UserPaste from "../components/UserPaste";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -7,8 +7,31 @@ import { usePasteContext } from "../hooks/usePasteContext";
 const Paste = () => {
   const { user } = useAuthContext();
   const { dispatch } = usePasteContext();
-  const location = useLocation();
-  const { paste } = location.state;
+  // const location = useLocation();
+  // const { paste } = location.state;
+  const [copy, setCopy] = useState("none");
+  const [paste, setPaste] = useState({});
+  const { id } = useParams();
+
+  const copyClicked = () => {
+    navigator.clipboard.writeText(paste.body);
+    setCopy("");
+    setTimeout(() => {
+      setCopy("none");
+    }, 700);
+  };
+
+  useEffect(() => {
+    const getPaste = async () => {
+      const response = await fetch(`http://localhost:5500/api/pastes/${id}`);
+      const json = await response.json();
+      if (!response.ok) {
+        window.location.href = "/404";
+      }
+      setPaste(json);
+    };
+    getPaste();
+  }, [id]);
 
   const deletePaste = async (e) => {
     e.preventDefault();
@@ -25,7 +48,7 @@ const Paste = () => {
     const json = await response.json();
     if (response.ok) {
       dispatch({ type: "DELETE_PASTE", payload: json });
-      redirect(json.redirect);
+      window.location.href = json.redirect;
     }
   };
   return (
@@ -39,9 +62,16 @@ const Paste = () => {
             value={paste.body}
           ></textarea>
           <div className="icon">
-            <span onClick={(e) => navigator.clipboard.writeText(paste.body)}>
-              copy
+            <span
+              style={{
+                display: copy,
+                color: "#4caf50",
+                transition: "all 1s ease",
+              }}
+            >
+              <b>copied</b>
             </span>
+            <span onClick={copyClicked}>copy</span>
             {user && user._id === paste.user_id && (
               <>
                 <span>

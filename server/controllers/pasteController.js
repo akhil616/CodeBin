@@ -73,7 +73,7 @@ const updatePaste = async (req, res) => {
   if (!paste) {
     return res.status(404).json({ error: "No such paste" });
   }
-  res.status(200).json(paste);
+  res.status(200).json({ paste, redirect: id });
 };
 
 module.exports = {
