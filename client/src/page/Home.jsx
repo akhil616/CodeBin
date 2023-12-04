@@ -30,11 +30,14 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const paste = { title, visibility, body };
-    const response = await fetch("http://localhost:5500/api/pastes/", {
-      method: "POST",
-      body: JSON.stringify(paste),
-      headers: config,
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_URL}/api/pastes/`,
+      {
+        method: "POST",
+        body: JSON.stringify(paste),
+        headers: config,
+      }
+    );
     const json = await response.json();
     if (!response.ok) {
       setError(json.error);

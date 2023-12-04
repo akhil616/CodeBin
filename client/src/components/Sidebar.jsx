@@ -16,7 +16,6 @@ const Sidebar = () => {
     };
 
     fetchPaste();
-    console.log("fetch");
   }, []);
 
   return (

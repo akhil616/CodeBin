@@ -54,7 +54,9 @@ const Navbar = () => {
                   value={id}
                   autoComplete="off"
                 />
-                <button className="search-btn">Search</button>
+                <button disabled={id ? false : true} className="search-btn">
+                  Search
+                </button>
               </form>
             </li>
             {user && (

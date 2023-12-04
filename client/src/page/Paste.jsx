@@ -24,7 +24,9 @@ const Paste = () => {
 
   useEffect(() => {
     const getPaste = async () => {
-      const response = await fetch(`http://localhost:5500/api/pastes/${id}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/pastes/${id}`
+      );
       const json = await response.json();
       if (!response.ok) {
         window.location.href = "/404";
@@ -38,7 +40,7 @@ const Paste = () => {
     e.preventDefault();
     console.log(paste._id);
     const response = await fetch(
-      `http://localhost:5500/api/pastes/${paste._id}`,
+      `${import.meta.env.VITE_BASE_URL}/api/pastes/${paste._id}`,
       {
         method: "DELETE",
         headers: {

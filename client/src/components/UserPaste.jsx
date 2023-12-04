@@ -23,7 +23,6 @@ const UserPaste = () => {
       // setPastes(json);
     };
     fetchPaste();
-    console.log("Fetched user Pastes");
   }, [user]);
   return (
     <div>

@@ -7,13 +7,11 @@ import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { UserPasteContextProvider } from "./context/UserPasteContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AuthContextProvider>
-      <PasteContextProvider>
-        <UserPasteContextProvider>
-          <App />
-        </UserPasteContextProvider>
-      </PasteContextProvider>
-    </AuthContextProvider>
-  </React.StrictMode>
+  <AuthContextProvider>
+    <PasteContextProvider>
+      <UserPasteContextProvider>
+        <App />
+      </UserPasteContextProvider>
+    </PasteContextProvider>
+  </AuthContextProvider>
 );

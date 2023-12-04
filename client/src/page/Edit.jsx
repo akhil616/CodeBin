@@ -31,7 +31,7 @@ const Edit = () => {
     e.preventDefault();
     const patchPaste = { title, visibility, body };
     const response = await fetch(
-      `http://localhost:5500/api/pastes/${paste._id}`,
+      `${import.meta.env.VITE_BASE_URL}/api/pastes/${paste._id}`,
       {
         method: "PATCH",
         body: JSON.stringify(patchPaste),
