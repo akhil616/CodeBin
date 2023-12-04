@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, redirect, Link, useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import UserPaste from "../components/UserPaste";
@@ -12,6 +12,7 @@ const Paste = () => {
   const [copy, setCopy] = useState("none");
   const [paste, setPaste] = useState({});
   const { id } = useParams();
+  const ref = useRef();
 
   const copyClicked = () => {
     navigator.clipboard.writeText(paste.body);
@@ -57,9 +58,10 @@ const Paste = () => {
         <div className="paste">
           <h2>{paste.title}</h2>
           <textarea
-            className="fixedtext"
+            style={{ overflow: "auto" }}
             readOnly
             value={paste.body}
+            ref={ref}
           ></textarea>
           <div className="icon">
             <span

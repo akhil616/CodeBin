@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { usePasteContext } from "../hooks/usePasteContext";
 import UserPaste from "../components/UserPaste";
@@ -13,6 +13,7 @@ const Home = () => {
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
   const { dispatch: userPasteDispatch } = useUserPasteContext();
+  const ref = useRef();
 
   var config = {};
   if (user) {
@@ -44,10 +45,13 @@ const Home = () => {
       setVisibility(null);
       setError(null);
       console.log("new paste added", json);
-      userPasteDispatch({ type: "CREATE_PASTE", payload: json });
+      if (user) {
+        userPasteDispatch({ type: "CREATE_PASTE", payload: json });
+      }
       if (json.visibility === "Public") {
         dispatch({ type: "CREATE_PASTE", payload: json });
       }
+      window.location.href = `/${json._id}`;
     }
   };
 
@@ -92,10 +96,16 @@ const Home = () => {
           <br />
           <textarea
             required
+            spellCheck={false}
+            ref={ref}
             name="textarea"
             placeholder="Enter your paste"
             value={body}
-            onChange={(e) => setBody(e.target.value)}
+            onChange={(e) => {
+              setBody(e.target.value);
+              ref.current.style.height = "12rem";
+              ref.current.style.height = ref.current.scrollHeight + "px";
+            }}
           />
           <button>Create New Paste</button>
           {error && <div>{error}</div>}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { redirect, useLocation } from "react-router-dom";
 import { usePasteContext } from "../hooks/usePasteContext";
@@ -9,13 +9,12 @@ const Edit = () => {
   const location = useLocation();
   const { paste } = location.state;
 
-  const { dispatch } = usePasteContext();
   const [title, setTitle] = useState(paste.title);
   const [visibility, setVisibility] = useState(paste.visibility);
   const [body, setBody] = useState(paste.body);
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
-
+  const ref = useRef(null);
   var config = {};
   if (user) {
     config = {
@@ -93,10 +92,15 @@ const Edit = () => {
           <br />
           <textarea
             required
+            ref={ref}
             name="textarea"
             placeholder="Enter your paste"
             value={body}
-            onChange={(e) => setBody(e.target.value)}
+            onChange={(e) => {
+              setBody(e.target.value);
+              ref.current.style.height = "12rem";
+              ref.current.style.height = ref.current.scrollHeight + "px";
+            }}
           />
           <button>Update Paste</button>
           {error && <div>{error}</div>}

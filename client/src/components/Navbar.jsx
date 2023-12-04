@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -6,6 +6,25 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const Navbar = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
+  const [id, setId] = useState("");
+  const [open, setOpen] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    if (!isOpen) {
+      setIsOpen((prevIsOpen) => !prevIsOpen);
+      setOpen("open");
+    } else {
+      setIsOpen((prevIsOpen) => !prevIsOpen);
+      setOpen("");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(id);
+    window.location.href = `/${id}`;
+  };
 
   const handleClick = (e) => {
     logout();
@@ -18,34 +37,74 @@ const Navbar = () => {
         </Link>
         <div className="menu"></div>
         <nav>
-          <Link to="/">
-            <button>+ Paste</button>
-          </Link>
-          <form className="search-form">
-            <input
-              type="text"
-              name="query"
-              className="search-box"
-              placeholder="Search..."
-              autoComplete="off"
-            />
-            <button className="search-btn" type="submit">
-              Search
-            </button>
-          </form>
-          {user && (
-            <div>
-              <span>{user.email}</span>
-              <button onClick={handleClick}>Logout</button>
-            </div>
-          )}
-          {!user && (
-            <div>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </div>
-          )}
+          <ul>
+            <li>
+              <Link to="/">
+                <button>+ Paste</button>
+              </Link>
+            </li>
+            <li>
+              <form className="search-form" onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  name="query"
+                  className="search-box"
+                  placeholder="Search..."
+                  onChange={(e) => setId(e.target.value)}
+                  value={id}
+                  autoComplete="off"
+                />
+                <button className="search-btn">Search</button>
+              </form>
+            </li>
+            {user && (
+              <>
+                <li>{user.email}</li>
+                <li>
+                  <button onClick={handleClick}>Logout</button>
+                </li>
+              </>
+            )}
+            {!user && (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Signup</Link>
+                </li>
+              </>
+            )}
+          </ul>
         </nav>
+        <div id="hamburger-icon" className={open} onClick={handleOpen}>
+          <div className="bar1"></div>
+          <div className="bar2"></div>
+          <div className="bar3"></div>
+          <ul className="mobile-menu">
+            <li>
+              <Link to="/">+ Paste</Link>
+            </li>
+            {user && (
+              <>
+                <li>{user.email}</li>
+                <li>
+                  <button onClick={handleClick}>Logout</button>
+                </li>
+              </>
+            )}
+            {!user && (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Signup</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
       </div>
     </header>
   );
