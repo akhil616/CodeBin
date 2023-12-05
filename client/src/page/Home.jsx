@@ -15,6 +15,8 @@ const Home = () => {
   const { dispatch: userPasteDispatch } = useUserPasteContext();
   const ref = useRef();
 
+  // console.log(`${import.meta.env.VITE_BASE_URL}/api/pastes/`);
+
   var config = {};
   if (user) {
     config = {
